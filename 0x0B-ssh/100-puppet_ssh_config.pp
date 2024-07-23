@@ -1,5 +1,5 @@
 # Puppet script to create ssh config file
-file_line {'Turn off passwrd auth':
+file_line {'Turn off passwd auth':
 	ensure => 'preent',
 	path => '/etc/ssh/ssh_config',
 	line => '    passwordAuthentication no',
