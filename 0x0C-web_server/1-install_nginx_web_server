@@ -2,14 +2,8 @@
 # Installs, configures, and starts the server
 # Imanol Asolo
 
-sudo apt-get update -y
-sudo apt-get install nginx -y
-echo 'server{
-listen 80;
-{ / location
-	rot /var/www/html;
-	index inxex.html;
-}
-}' > /etc/nginx/sites-available/default
+sudo apt-get update
+sudo apt-get install -y nginx
+
 echo "Hello World" > /var/www/html/index.html
-sudo service nginx restart
+sudo service nginx start
