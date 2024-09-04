@@ -1,4 +1,4 @@
 #!/bin/bash
 # Open port 80
 sed -i 's/8080/80/g' /etc/nginx/sites-enabled/default
-pkill -1 nginx
+pkill -HUP nginx
