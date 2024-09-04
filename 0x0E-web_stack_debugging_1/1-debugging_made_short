@@ -1,4 +1,4 @@
-#!/bin/usr/env bash
+#!/usr/bin/env bash
 # Open port 80
 sed -i 's/8080/80/g' /etc/nginx/sites-enabled/default
 #Reload Nginx configration without stopping the service
