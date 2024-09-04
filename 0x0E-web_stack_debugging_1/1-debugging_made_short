@@ -1,5 +1,4 @@
 #!/bin/bash
-service nginx stop
-service nginx start
-sleep 1
-curl -sI 0:80 | grep "200 0k"
+# Open port 80
+sed -i 's/8080/80/g' /etc/nginx/sites-enabled/default
+pkill -1 nginx
