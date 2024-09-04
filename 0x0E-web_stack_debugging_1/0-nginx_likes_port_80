@@ -4,3 +4,8 @@
 # this is apam
 sed -i 's/8080/80/g' /etc/nginx/sites-enabled/default
 service nginx restart
+if netstat -tuln | grep -q ':80'; then
+	echo "Nginx must be running, and listening on port 80"
+else
+	echo "Nginx must be running, and listening on port 80 please check the configuration"
+fi
