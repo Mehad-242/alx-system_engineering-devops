@@ -1,0 +1,5 @@
+#!/bin/bash
+service nginx stop
+service nginx start
+sleep 1
+curl -sI 0:80 | grep "200 0k"
