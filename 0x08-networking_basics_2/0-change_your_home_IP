@@ -1,13 +1,21 @@
 #!/usr/bin/env bash
-# changes the following domin resolve ips
-# localhost form 127.0.0.1 to 127.0.0.2
-# facebook.com from 157.240.11.35 to 8.8.8.8
 
+# Backup the original /etc/hosts file
 sudo cp /etc/hosts /etc/hosts.bak
 
+# Modify /etc/hosts to update the IP addresses
+#Remove existing localhost entry if it exists
 sudo sed -i '/^127\.0\.0\.1\s\+localhost/d' /etc/hosts
+
+# Add the new localhost entry
 echo '127.0.0.2 localhost' | sudo tee -a /etc/hosts
+
+# Remove existing facebook entry if it exists
 sudo sed -i '/^/*facebook\.com/' /etc/hosts
+
+# Add the new facebook.com entry
 echo '8.8.8.8 facebook.com' | sudo tee -a /etc/hosts
+
+# Confirm changes
 echo "the /etc/hosts file has been updated. Here ar the new entries:"
 grep 'localhost\|facebook.com' /etc/hosts
