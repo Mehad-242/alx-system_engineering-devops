@@ -1,4 +1,4 @@
-#!/bin/bash 
+#!/usr/bin/env bash 
 
 # Function to get the DNS record type and value
 get_dns_record() {
