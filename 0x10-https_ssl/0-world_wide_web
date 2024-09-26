@@ -1,0 +1,37 @@
+#!/usr/bin/env bash 
+
+# Function to get the DNS record type and value
+get_dns_record() {
+	local domain=$1
+	local subdomain=$2
+	local result
+
+	result=$(dig +short "$subdomain.$domain")
+	if [[ -n "$result" ]]; then
+		echo "$subdomain is a A record and points to $result"
+	else
+		echo "No record found for $subdomain"
+	fi
+}
+
+# Check if domain argument is provided
+if [[ -z "$1" ]]; then
+	echo "Domain argument is required"
+	exit 1
+fi
+
+DOMAIN=$1
+SUBDOMAIN=$2
+
+# Define subdomains to check
+SUBDOMAINS=("www" "lb-01" "web-01" "web-02")
+
+# If subdomain argument is provided, check only that subdomain
+if [[ -n "$SUBDOMAIN" ]]; then
+	get_dns_record "$DOMAIN" "$SUBDOMAIN"
+else
+	# Check all subdomains
+	for SUB in "${SUBDOMAINS[@]}"; do
+		get_dns_record "$DOMAIN" "$SUB"
+	done
+fi
