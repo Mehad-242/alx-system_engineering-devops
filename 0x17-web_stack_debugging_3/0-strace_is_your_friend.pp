@@ -1,10 +1,6 @@
- Puppet manifest to fix Apache 500 error due to file permissions
+# creat a manifest that fix all termintion of phpp.
 
-file { '/var/www/html/wp-config.php':
-	ensure => file,
-	owner  => 'www-data',
-	group  => 'www-data',
-	mode   => '0644',
+exec { 'fix_phpp':
+	command => 'sed -i s/phpp/php/g /var/www/html/wp-settings.php',
+	path    => ['/bin', '/usr/bin/', '/usr/loca/bin/'],
 }
-
-# You can add more resources if needed to address other issues discovered
