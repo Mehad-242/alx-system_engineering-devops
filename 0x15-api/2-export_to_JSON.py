@@ -1,29 +1,37 @@
 #!/usr/bin/python3
-"""Exports data in the JSON format"""
+import json
+import requests
+import sys
 
-if __name__ == "__main__":
+if name == "main":
+    # Get the user ID from the command-line argument
+    user_id = sys.argv[1]
 
-	import json
-	import requests
-	import sys
+    # Fetch the user data
+    user_url = f"https://jsonplaceholder.typicode.com/users/{user_id}"
+    user = requests.get(user_url).json()
 
-	userId = sys.argv[1]
-	user = requests.get("https://jsonplaceholder.typicode.com/users/{}"
-                        .format(userId))
-	todos = requests.get('https://jsonplaceholder.typicode.com/todos')
-	todos = todos.json()
+    # Fetch the user's tasks
+    todos_url = f"https://jsonplaceholder.typicode.com/todos?userId={user_id}"
+    todos = requests.get(todos_url).json()
 
-	todoUser = {}
-	taskList = []
+    # Username of the user
+    username = user.get('username')
 
-	for task in todos:
-		if task.get('userId') == int(userId):
-		taskDict = {"task": task.get('title'),
-			"completed": task.get('completed'),
-			"username": user.json().get('username')}
-		taskList.append(taskDict)
-	todoUser[userId] = taskList
+    # Prepare data for the JSON file
+    tasks = []
+    for todo in todos:
+        task_data = {
+            "task": todo.get('title'),
+            "completed": todo.get('completed'),
+            "username": username
+        }
+        tasks.append(task_data)
 
-	filename = userId + '.json'
-	with open(filename, mode='w') as f:
-		json.dump(todoUser, f)
+    # Create the dictionary with the user_id as the key
+    user_tasks = {user_id: tasks}
+
+    # Write the data to a JSON file named USER_ID.json
+    file_name = f"{user_id}.json"
+    with open(file_name, 'w') as json_file:
+        json.dump(user_tasks, json_file)
